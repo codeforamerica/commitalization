@@ -1,0 +1,68 @@
+/**
+ * Main styles for Commitalization
+ */
+header {
+    background-color: #BBBBBB;
+    height: 100px;
+    padding: 10px;
+}
+
+h1 {
+    font-size: 3em;
+    color: #222222;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #FFFFFF;
+}
+
+#main {
+    min-height: 300px;
+}
+
+footer {
+    background-color: #333333;
+    height: 80px;
+    padding: 10px;
+}
+
+ul#commit-container {
+    padding: 5px;
+    list-style: none;
+    margin: 0;
+}
+
+ul#commit-container li {
+    width: 200px;
+    padding: 10px;
+    background-color: #BBBBBB;
+    color: #222222;
+    font-size: 1.5em;
+    float: right;
+    margin: 5px;
+}
+
+/**
+ * Clearfix
+ */
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
