@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<head>
+
+<meta charset="utf-8">
+    <title>Testing</title>
+</head>
+
+<body>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/client.js"></script>
+<script src="/socket.io/socket.io.js"></script> 
+<script> 
+    var socket = new io.Socket('/'); 
+    socket.connect();
+    socket.on('connect', function(){ alert('connect'); }) 
+    socket.on('message', function(){ alert('message'); }) 
+    socket.on('disconnect', function(){ alert('disconnect'); }) 
+</script> 
+    
+</body>
+</html>

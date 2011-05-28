@@ -1,0 +1,18 @@
+{
+  "name": "commitalization",
+  "version": "1.0.0",
+  "description": "Live visualization of ",
+  "homepage": "http://codeforamerica.org",
+  "main": "server/server.js",
+  "repository": { 
+    "type": "git",
+    "url": "git@github.com:codeforamerica/commitalization.git"
+  },
+  "engines": {
+    "node": "0.4.x"
+  },
+  "dependencies": {
+    "express": "2.3.x",
+    "socket.io": "0.6.x"
+  }
+}
