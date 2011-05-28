@@ -43,6 +43,32 @@ ul#commit-container li {
     margin: 5px;
 }
 
+#status-container {
+    width: 300px;
+    float: right;
+    font-size: 1em;
+    font-weight: bold;
+    color: #EEEEEE;
+}
+
+#status-label {
+    display: block;
+    text-align: right;
+    width: 80px;
+    float: left;
+    padding: 10px;
+}
+
+#status-current {
+    padding: 10px;
+    background-color: #111111;
+    display: block;
+    float: right;
+    width: 170px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 /**
  * Clearfix
  */
