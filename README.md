@@ -13,3 +13,7 @@ Using node.js, the server sets up the following:
 
 On the client side, Javascript handles communication from the server
 and updates the page accordingly.
+
+## Installing
+
+This is currently deployable for dotcloud...
