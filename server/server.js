@@ -27,7 +27,11 @@ exports.client = function() {
         var data = req.body = req.body || {};
         var response = {};
 
+console.log('POSTDATA');
+console.log(data);
         var valid = commitPoster.emitCommit(data);
+console.log('VALID');
+console.log(valid);
         if (valid) {
             response = { 'request': 'OK' };
         }
