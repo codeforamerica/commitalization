@@ -6,6 +6,7 @@
             socketHandler.updateStatus('connected'); 
         }); 
         socket.on('message', function(message) {
+console.log(message);
             commitHandler.addCommit(message);
         });
         socket.on('disconnect', function() {

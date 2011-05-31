@@ -26,7 +26,7 @@ exports.client = function() {
     app.post('/committed', express.bodyParser(), function(req, res) {
         var data = req.body = req.body || {};
         var response = {};
-console.log(data);
+
         var valid = commitPoster.emitCommit(data);
         if (valid) {
             response = { 'request': 'OK' };
@@ -63,6 +63,8 @@ exports.server = function() {
         
         // Let's send the commits we have in memory
         var commits = commitPoster.getCommits();
+console.log('COMMITS');
+console.log(commits);
         if (commits) {
             for (var i = 0; i < commits.length; i++) {
                 client.send(commits[i]);
