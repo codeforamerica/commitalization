@@ -3,26 +3,22 @@
     $(document).ready(function() {
         var socket = new io.Socket(); 
         socket.on('connect', function() {
-            updateStatus('connected'); 
+            socketHandler.updateStatus('connected'); 
         }); 
         socket.on('message', function(message) {
             console.log(message);
-            addCommit('message');
+            commitHandler.addCommit(message);
         });
         socket.on('disconnect', function() {
-            updateStatus('disconnected');
+            socketHandler.updateStatus('disconnected');
         });
         
         socket.connect();
         
-        
-        //console.log(socket);
-        //socket.send('Hi');
-        
+        // Handle post test click
         $('a.post-test').click(function() {
-            addCommit('testing post....');
             $.post('committed', getPostData(), function() {
-                addCommit('posted data.');
+                // Success
             });
             return false;
         });
@@ -30,16 +26,8 @@
 })(jQuery);
 
 /**
- * Add element to commit container.
+ * Example commit data
  */
-var addCommit = function(message) {
-    $('#commit-container').prepend('<li>' + message + '</li>');
-}
-var updateStatus = function(message) {
-    $('#status-current').html(message);
-}
-
-
 var getPostData = function() {
     return {
       "before": "5aef35982fb2d34e9d9d4502f6ede1072793222d",

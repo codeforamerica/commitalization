@@ -48,7 +48,7 @@ committer.prototype.addCommit = function(commit) {
     
     // Check if too long
     if (length > this.commitLimit) {
-        for (var i = 0; i < length - commitLimit; i++) {
+        for (var i = 0; i < length - this.commitLimit; i++) {
             this.commits.shift();
         }
     }
