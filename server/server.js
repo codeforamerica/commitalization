@@ -58,6 +58,8 @@ exports.server = function() {
         });
         
         commitPoster.on('committed', function(data) {
+console.log('EMITTING');
+console.log(data);
             client.send(data);
         });
         
