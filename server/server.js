@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var committer = require('./committer').committer;
 var commitPoster = new committer;
+var port = 8080;
 
 // Configure express server
 var app = express.createServer();
@@ -37,8 +38,8 @@ exports.client = function() {
     });
     
     // Start it up
-    app.listen(9955);
-    console.log('HTTP Client Listening on http://localhost:9955');
+    app.listen(port);
+    console.log('HTTP Client Listening on http://localhost:' + port);
 }
 
 // Server side handling
