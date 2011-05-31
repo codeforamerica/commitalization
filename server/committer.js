@@ -44,6 +44,11 @@ committer.prototype.checkCommit = function(data) {
 committer.prototype.addCommit = function(commit) {
     this.commitID++;
     commit.commitID = this.commitID;
+    
+    // Add some metadata
+    commit.received = new Date();
+    
+    // Push it to the list
     var length = this.commits.push(commit);
     
     // Check if too long

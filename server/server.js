@@ -59,6 +59,14 @@ exports.server = function() {
         commitPoster.on('committed', function(data) {
             client.send(data);
         });
+        
+        // Let's send the commits we have in memory
+        var commits = commitPoster.getCommits();
+        if (commits) {
+            for (var i = 0; i < commits.length; i++) {
+                client.send(commits[i]);
+            }
+        }
     });
     console.log('Server side socket started.');
 }

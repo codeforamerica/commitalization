@@ -5,17 +5,17 @@ var commitHandler = {
     commits: [],
 
     addCommit: function(commit) {
-        commit = this.getMeta(commit);
-        this.commits.push(commit);
-        
-        // Remove last commit
-        $('#commit-container-latest .commit').appendTo('#commit-container-old').hide().show('slow');
-        
-        // Add new items
-        $('#commit-container-latest').prepend(this.commitMarkup(commit, true)).hide().show('slow');
-        
-        // Add nice time formats that update automatically
-        $('.timeago').timeago();
+        if (this.validateCommit(commit)) {
+            commit = this.getMeta(commit);
+            this.commits.push(commit);
+            
+            // Remove last commit
+            $('#commit-container-latest .commit').appendTo('#commit-container-old').hide().show('slow');
+            // Add new items
+            $('#commit-container-latest').prepend(this.commitMarkup(commit, true)).hide().show('slow');
+            // Add nice time formats that update automatically
+            $('.timeago').timeago();
+        }
     },
     
     // Commit markup
@@ -56,11 +56,27 @@ var commitHandler = {
         
         // This is where we would query GitHub to get some more information
         
-        // Add current data and time
-        var now = new Date();
-        commit.received = dateFormat(now, 'isoDateTime');
+        // Format time that commit was recieved by server
+        commit.received = commit.received || new Date();
+        commit.received = dateFormat(commit.received, 'isoDateTime');
         
         return commit;
+    },
+    
+    // Validate commit.  Sometimes we may get duplicates of commits
+    // so we should check them out
+    validateCommit: function(commit) {
+        var valid = true;
+    
+        // Is it easier to search the DOM or search an array?
+        // Probably the array
+        for (var i in this.commits) {
+            if (this.commits[i].commitID == commit.commitID) {
+                valid = false;
+            }
+        }
+        
+        return valid;
     }
 };
 
