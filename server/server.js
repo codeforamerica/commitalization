@@ -26,7 +26,7 @@ exports.client = function() {
     app.post('/committed', express.bodyParser(), function(req, res) {
         var data = req.body = req.body || {};
         var response = {};
-        
+console.log(data);
         var valid = commitPoster.emitCommit(data);
         if (valid) {
             response = { 'request': 'OK' };
