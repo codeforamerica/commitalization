@@ -27,6 +27,9 @@ footer {
     padding: 10px;
 }
 
+/**
+ * Commit container
+ */
 ul#commit-container {
     padding: 5px;
     list-style: none;
@@ -39,10 +42,12 @@ ul#commit-container li {
     background-color: #BBBBBB;
     color: #222222;
     font-size: 1.5em;
-    float: right;
     margin: 5px;
 }
 
+/**
+ * Statues container
+ */
 #status-container {
     width: 300px;
     float: right;
