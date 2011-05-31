@@ -3,9 +3,13 @@ or set of projects.
 
 ## Server Side
 
-Using node.js, we'll set up a listener for live commits.
+Using node.js, the server sets up the following:
+
+  * Socket connect to communicate with client.
+  * Post URL (/committed) to handle post requests from GitHub
+  * Client webpage
 
 ## Client Side
 
-Using client side JS, we'll then get the relayed data.  this means, any web page could
-display live commits.
+On the client side, Javascript handles communication from the server
+and updates the page accordingly.
