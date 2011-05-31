@@ -27,11 +27,13 @@ exports.client = function() {
         var data = req.body = req.body || {};
         var response = {};
 
-console.log('POSTDATA');
-console.log(data);
+        // Parse body given the input from GitHub
+        if (data.payload && typeof data.payload == 'string') {
+            data = JSON.parse(data.payload);
+        }
+
+        // Handle commit
         var valid = commitPoster.emitCommit(data);
-console.log('VALID');
-console.log(valid);
         if (valid) {
             response = { 'request': 'OK' };
         }
@@ -62,15 +64,11 @@ exports.server = function() {
         });
         
         commitPoster.on('committed', function(data) {
-console.log('EMITTING');
-console.log(data);
             client.send(data);
         });
         
         // Let's send the commits we have in memory
         var commits = commitPoster.getCommits();
-console.log('COMMITS');
-console.log(commits);
         if (commits) {
             for (var i = 0; i < commits.length; i++) {
                 client.send(commits[i]);
