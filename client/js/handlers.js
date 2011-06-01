@@ -60,7 +60,7 @@ var commitHandler = {
             output += '<div class="commit-commits commit-' + commit.commits[i].id + '">' +
                 '<a class="commit-message" href="' + commit.commits[i].url + '">' + 
                     commit.commits[i].message + '</a>' +
-                'Committed about <span class="commit-time timeago" title="' + commit.commits[i].timestamp + '">' + 
+                'Committed <span class="commit-time timeago" title="' + commit.commits[i].timestamp + '">' + 
                     commit.commits[i].timestamp + '</span> by ' + 
                 '<a class="commit-author" href="#">' + commit.commits[i].author.name + '</a> ' +
                 '</div>';
