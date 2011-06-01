@@ -12,7 +12,33 @@
             socketHandler.updateStatus('disconnected');
         });
         
+        // Conneck the sprockets!
         socket.connect();
+        
+        // Initialize the isotope
+        var $container = $('#commit-container');
+        $container.isotope({
+            itemSelector : '.commit',
+            layoutMode : 'masonry',
+            animationEngine: 'best-available',
+            masonry : {
+              columnWidth : 2
+            }
+        });
+        
+        // Handler to open up commits
+        $('.commit:not(.commit-latest)').live('click', function() {
+            $thisTitle = $(this);
+            if ($thisTitle.hasClass('open')) {
+                $thisTitle.find('.commit-commits-container').hide();
+                $thisTitle.removeClass('open');
+            }
+            else {
+                $thisTitle.find('.commit-commits-container').show();
+                $thisTitle.addClass('open');
+            }
+            $container.isotope('reLayout');
+        });
         
         // Handle post test click
         $('a.post-test').click(function() {
