@@ -19,6 +19,11 @@ and updates the page accordingly.
 This is currently deployable for dotcloud, but could be run
 in any environment that runs node.js.
 
+1. Install node
+2. Install npm
+3. Run `npm install`
+4. Run: `node server/server.js`
+
 ## Technologies Used
 
 This would not be possible without all these great, open source projects:
