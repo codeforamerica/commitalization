@@ -1,5 +1,5 @@
 This project is meant to be a visualization of live commits to a project
-or set of projects.
+or set of projects.  Good for codeathon/hackathons/sprints etc.
 
 ## Server Side
 
