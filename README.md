@@ -16,4 +16,20 @@ and updates the page accordingly.
 
 ## Installing
 
-This is currently deployable for dotcloud...
+This is currently deployable for dotcloud, but could be run
+in any environment that runs node.js.
+
+## Technologies Used
+
+This would not be possible without all these great, open source projects:
+
+  * [Node.js](http://nodejs.org/)
+  * [Socket.io](http://socket.io/)
+  * [Express](http://expressjs.com/)
+  * [HTML5 Boilerplate](http://html5boilerplate.com/)
+  * [CSS3](http://www.w3.org/TR/CSS/#css3)
+  * [jQuery](http://jquery.com/)
+  * [date.format.js](http://blog.stevenlevithan.com/archives/date-time-format)
+  * [timeago.js](http://timeago.yarp.com/)
+  * [Isotope](http://isotope.metafizzy.co/)
+  * [Modernizr](http://www.modernizr.com/)
