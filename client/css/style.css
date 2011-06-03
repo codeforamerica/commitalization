@@ -167,6 +167,22 @@ footer {
 }
 
 /**
+ * Half size
+ */
+#commit-container .commit.half {
+    width: 110px;
+}
+
+#commit-container .commit.half .commit-project {
+    display: none;
+}
+#commit-container .commit.half .commits-title {
+    text-align: center;
+    padding-top: 7px;
+    clear: both;
+}
+
+/**
  * Statues container
  */
 #status-container {

@@ -7,6 +7,9 @@ var commitHandler = {
     colors: ['#3366FF', '#6633FF', '#CC33FF', '#FF33CC', '#33CCFF',
             '#003DF5', '#002EB8', '#FF3366', '#33FFCC', '#B88A00', '#F5B800', 
             '#FF6633', '#33FF66', '#66FF33', '#CCFF33', '#FFCC33'],
+    borderWidth: 3,
+    halfThreshhold: 20,
+    totalThreshold: 100,
 
     addCommit: function(commit) {
         if (this.validateCommit(commit)) {
@@ -16,13 +19,15 @@ var commitHandler = {
             // Remove any latest commit classes and add new one
             $('#commit-container .commit').removeClass('commit-latest');
             $newCommit = $(this.commitMarkup(commit, true)).addClass('commit-latest');
+            $('#commit-container').prepend($newCommit);
+            
+            // Update with fun colors and other styling
+            this.updateSizes();
+            this.updateColors();
             
             // Fancy isotope stuff
-            $('#commit-container').prepend($newCommit).isotope('reloadItems')
+            $('#commit-container').isotope('reloadItems')
                 .isotope({ sortBy: 'original-order' }).isotope('reLayout');
-            
-            // Update with fun colors
-            this.updateColors();
             
             // Add nice time formats that update automatically
             $('.timeago').timeago();
@@ -114,9 +119,42 @@ var commitHandler = {
     
     updateColors: function() {
         for (var i in this.projectColors) {
-console.log(i);
             $('.repo-' + i + ' .commit-project a').css('color', this.projectColors[i]);
+            $('.repo-' + i + '.half .commit-recieved').css('border-bottom', '3px solid ' + this.projectColors[i]);
         }
+    },
+    
+    updateSizes: function() {
+        // Any commits over half threshold get a new class.
+        $('#commit-container .commit').slice(this.halfThreshhold).addClass('half');
+    },
+    
+    clickHandler: function() {
+        // Handler to open up commits (could be more eddicient)
+        $('.commit:not(.commit-latest)').live('click', function() {
+            var $container = $('#commit-container');
+            $thisTitle = $(this);
+            
+            // Check half
+            if ($thisTitle.hasClass('half')) {
+                $thisTitle.data('half', true);
+                $thisTitle.removeClass('half');
+            }
+            else if ($thisTitle.data('half')) {
+                $thisTitle.addClass('half');
+            }
+            
+            // Handle opening
+            if ($thisTitle.hasClass('open')) {
+                $thisTitle.find('.commit-commits-container').hide();
+                $thisTitle.removeClass('open');
+            }
+            else {
+                $thisTitle.find('.commit-commits-container').show();
+                $thisTitle.addClass('open');
+            }
+            $container.isotope('reLayout');
+        });
     }
 };
 

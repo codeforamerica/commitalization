@@ -5,7 +5,7 @@ var emitter = require('events').EventEmitter;
 var committer = function(commitLimit) {
     this.posted = false;
     this.commits = [];
-    this.commitLimit = commitLimit || 20;
+    this.commitLimit = commitLimit || 50;
     this.commitID = 0;
 }
 committer.prototype = new emitter;
