@@ -8,8 +8,10 @@ var commitHandler = {
             '#003DF5', '#002EB8', '#FF3366', '#33FFCC', '#B88A00', '#F5B800', 
             '#FF6633', '#33FF66', '#66FF33', '#CCFF33', '#FFCC33'],
     borderWidth: 3,
-    halfThreshhold: 20,
+    halfThreshhold: 15,
     totalThreshold: 100,
+    projectCount: 0,
+    commitCount: 0,
 
     addCommit: function(commit) {
         if (this.validateCommit(commit)) {
@@ -31,6 +33,9 @@ var commitHandler = {
             
             // Add nice time formats that update automatically
             $('.timeago').timeago();
+            
+            // Update stats
+            this.updateStats(commit);
         }
     },
     
@@ -155,6 +160,20 @@ var commitHandler = {
             }
             $container.isotope('reLayout');
         });
+    },
+    
+    displayPallette: function() {
+        for (var i in this.colors) {
+            $('<li></li>').css('background-color', this.colors[i]).appendTo('ul.palette');
+        }
+    },
+    
+    updateStats: function(commit) {
+        this.commitCount += Object.keys(commit.commits).length;
+        $('li.status-commits').html(this.commitCount);
+        
+        this.projectCount += Object.keys(this.projectColors).length;
+        $('li.status-projects').html(this.projectCount);
     }
 };
 
@@ -172,6 +191,6 @@ var githubDataHandler = {
 var socketHandler = {
     // update status
     updateStatus: function(message) {
-        $('#status-current').html(message);
+        $('.status-current').html(message);
     }
 };

@@ -20,10 +20,6 @@
 
 <body>
     <div id="container">
-        <header>
-            <h1>Commitalization</h1>
-            <h2>live commits from <a href="http://codeforamerica.org/">Code for America.</a></h2>
-        </header>
         
         <div id="main" role="main" class="clearfix">
             <div id="commit-container">
@@ -31,13 +27,28 @@
             </div>
         </div>
         
+        <header class="clearfix">
+            <h1><a href="https://github.com/codeforamerica/commitalization">Commitalization</a></h1>
+            <h2>live commits from <a href="http://codeforamerica.org/">Code for America.</a></h2>
+        </header>
+        
         <footer>
-            <a href="#" class="post-test">post test</a>
-            <div id="status-container">
-                <span id="status-label">Status:</span>
-                <span id="status-current">waiting...</span>
+            <div id="status-container" class="clearfix">
+                <ul>
+                    <li class="status-value status-current">waiting...</li>
+                    <li class="status-label">status:</li>
+                    <li class="status-value status-commits">0</li>
+                    <li class="status-label">commits:</li>
+                    <li class="status-value status-projects">0</li>
+                    <li class="status-label">projects:</li>
+                </ul>
             </div>
-            <div class="about-project">
+            <div class="settings footer-container clearfix">
+                <ul class="palette">
+                </ul>
+                <p class="palette-label">pallette:</p>
+            </div>
+            <div class="about-project footer-container clearfix">
                 <p>Fork me on <a href="https://github.com/codeforamerica/commitalization">github</a></p>
             </div>
         </footer>

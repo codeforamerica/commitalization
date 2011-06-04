@@ -29,6 +29,9 @@
         // Click handling
         commitHandler.clickHandler();
         
+        // Display our pallette
+        commitHandler.displayPallette();
+        
         // Handle post test click
         var count = 0;
         $('a.post-test').each(function() {

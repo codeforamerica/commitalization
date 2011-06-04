@@ -10,7 +10,7 @@
  * Main styles for Commitalization
  */
 body {
-    background-color: #333333;
+    background-color: #212121;
 }
 
 a,
@@ -26,22 +26,30 @@ a:visited:hover {
 
 header {
     background-color: #333333;
-    padding: 10px;
-    height: 70px;
+    width: 100%;
 }
 
 h1 {
     font-size: 3.7em;
-    color: #121212;
     display: inline;
     line-height: 70px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+h1, h1 a, h1 a:hover, h1 a:visited {
+    color: #EEEEEE;
+    text-decoration: none;
 }
 
 h2 {
     font-size: 1em;
     color: #B3B3B3;
-    display: inline;
-    margin-left: 10px;
+    float: right;
+    clear: both;
+    padding-top: 5px;
+    margin: 0 20px 20px 0;
+    
 }
 
 h2 a {
@@ -49,15 +57,18 @@ h2 a {
 }
 
 #main {
-    min-height: 500px;
+    min-height: 300px;
     width: 100%;
     background-color: #1F1E1D;
 }
 
 footer {
-    background-color: #333333;
+    background-color: #212121;
     height: 70px;
-    padding: 10px;
+    padding: 10px 20px 40px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #EEEEEE;
 }
 
 /**
@@ -146,8 +157,6 @@ footer {
 #commit-container .commit-latest {
     width: 530px;
     background-color: #BBBBBB;
-    box-shadow: inset 0 0 10px #000000;
-    -moz-box-shadow: inset 0 0 10px #000000;
 }
 
 #commit-container .commit-latest .commit-commits-container {
@@ -183,32 +192,62 @@ footer {
 }
 
 /**
- * Statues container
+ * Statues containers
  */
 #status-container {
-    width: 300px;
-    float: right;
-    font-size: 1em;
-    font-weight: bold;
-    color: #EEEEEE;
+    margin-bottom: 15px;
+    width: 100%;
+}
+#status-container ul {
+    list-style-type: none;
 }
 
-#status-label {
-    display: block;
+li.status-label {
     text-align: right;
     width: 80px;
-    float: left;
+    float: right;
     padding: 10px;
 }
 
-#status-current {
+li.status-value {
     padding: 10px;
     background-color: #111111;
-    display: block;
     float: right;
-    width: 170px;
+    width: 90px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+/**
+ * Footer containers
+ */
+.footer-container {
+    clear: both;
+    margin-top: 5px;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.footer-container ul.palette {
+    list-style-type: none;
+}
+
+.footer-container ul.palette li {
+    display: block;
+    float: right;
+    height: 20px;
+    width: 20px;
+    margin-right: 3px;
+}
+.footer-container .palette-label {
+    display: block;
+    float: right;
+    margin-right: 10px;
+}
+
+.about-project {
+    text-align: right;
 }
 
 /**
