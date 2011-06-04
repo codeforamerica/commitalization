@@ -17,7 +17,7 @@ var commitHandler = {
         if (this.validateCommit(commit)) {
             commit = this.getMeta(commit);
             this.commits.push(commit);
-            
+console.log(commit);
             // Remove any latest commit classes and add new one
             $('#commit-container .commit').removeClass('commit-latest');
             $newCommit = $(this.commitMarkup(commit, true)).addClass('commit-latest');
@@ -65,14 +65,20 @@ var commitHandler = {
         output += '</div>';
 
         // Commit informtation
+        // See server side for details, but we really are only getting full
+        // data for the author of the push, not each commit, so we are hoping
+        // it all matches up.
         output += '<div class="commit-commits-container">';
         for (var i in commit.commits) {
-            output += '<div class="commit-commits commit-' + commit.commits[i].id + '">' +
+            output += '<div class="commit-commits commit-commits-' + commit.commits[i].id + '">' +
+                '<img class="commit-commit-user" src="https://secure.gravatar.com/avatar/' + 
+                    commit.author_meta.gravatar_id + '" />' +
                 '<a class="commit-message" href="' + commit.commits[i].url + '">' + 
                     commit.commits[i].message + '</a>' +
                 'Committed <span class="commit-time timeago" title="' + commit.commits[i].timestamp + '">' + 
                     commit.commits[i].timestamp + '</span> by ' + 
-                '<a class="commit-author" href="#">' + commit.commits[i].author.name + '</a> ' +
+                '<a class="commit-author" href="http://github.com/'  + commit.author_meta.login + '">' + 
+                    commit.commits[i].author.name + '</a> ' +
                 '</div>';
         }
         output += '</div>';

@@ -1,5 +1,6 @@
 // Event emitting object to handle committes
 var emitter = require('events').EventEmitter;
+var github = require('github');
 
 // Define committer event emitting object
 var committer = function(commitLimit) {
@@ -12,10 +13,36 @@ committer.prototype = new emitter;
 
 // Emit commit event
 committer.prototype.emitCommit = function(commit) {
+    var i = 0;
+    var thisCommitter = this;
     var valid = this.checkCommit(commit);
     if (valid) {
         commit = this.addCommit(commit);
-        this.emit('committed', commit);
+        
+        // Add some meta data
+        var githubAPI = new github.GitHubApi(true);
+        // Get general author info
+        githubAPI.getUserApi().show(commit.pusher.name, function(err, response) {
+            commit.author_meta = response;
+            
+            // Get commit author data (looping through asychonous calls, doesnt work
+            // needs help.)
+            /*
+            for (i in commit.commits) {
+                githubAPI.getUserApi().show(commit.commits[i].author.username, function(err, response) {
+                    commit.commits[i].author_meta = response;
+                    
+                    if (i == Object.keys(commit.commits).length - 1) {
+                        // Send it out
+                        thisCommitter.emit('committed', commit);
+                    }
+                });
+            }
+            */
+            
+            // Send it out
+            thisCommitter.emit('committed', commit);
+        });
     }
     
     return valid;

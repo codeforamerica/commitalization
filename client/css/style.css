@@ -36,6 +36,8 @@ h1 {
     float: right;
     margin-right: 20px;
     margin-top: 10px;
+    
+  text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px;
 }
 h1, h1 a, h1 a:hover, h1 a:visited {
     color: #EEEEEE;
@@ -116,6 +118,8 @@ footer {
     font-weight: bold;
     font-size: 1.4em;
     margin-bottom: 10px;
+    
+  text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(67,67,67,0.2) 0 1px, rgba(0,0,0,0.2) -1px -1px;
 }
 
 #commit-container .commit .commits-title {
@@ -149,11 +153,15 @@ footer {
 #commit-container .commit a.commit-message {
     color: #33CCFF;
 }
+#commit-container .commit .commit-commit-user {
+    width: 35px;
+    float: right;
+    margin: 0 0 3px 3px;
+}
 
 /**
- * Lates styles
+ * Latest styles
  */
-
 #commit-container .commit-latest {
     width: 530px;
     background-color: #BBBBBB;
