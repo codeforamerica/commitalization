@@ -258,8 +258,8 @@ var commitHandler = {
             $('#project-selector').css('background-color', '#000000');
 
             // Add box
-            $('<a></a>').addClass('project-' + i)
-                .attr('title', i)
+            $addition = $('<a></a>').addClass('project-' + i)
+                .attr('title', 'Filter by: ' + i)
                 .attr('data-filter', '.repo-' + i)
                 .css('background-color', this.projectColors[i])
                 .css('width', String(final) + 'px')
@@ -269,6 +269,7 @@ var commitHandler = {
         // Show all link
         final = Math.ceil((0.5 * (e - d)) + d);
         $('<a></a>').addClass('project-none')
+                .attr('title', 'Reset filters and show all projects.')
             .attr('data-filter', '*')
             .css('background-color', '#EEEEEE')
             .css('width', String(final) + 'px')
@@ -283,6 +284,11 @@ var commitHandler = {
             $(this).addClass('active');
             $('#commit-container').isotope({ filter: $(this).attr('data-filter') });
             return false;
+        });
+        $('#project-selector a').tipsy({
+            live: true,
+            gravity: 'east',
+            fade: true
         });
     },
     

@@ -310,6 +310,27 @@ li.status-value {
 }
 
 /**
+ * Tipsy styles
+ */
+.tipsy {
+    font-size: 1.5em;
+    padding: 10px;
+    max-width: 350px;
+}
+.tipsy-inner {
+    padding: 10px;
+    background-color: black; 
+    color: white; 
+    max-width: 350px; 
+    text-align: center;
+}
+.tipsy-inner {
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+}
+
+/**
  * Clearfix
  */
 .clearfix:after {
