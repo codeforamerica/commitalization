@@ -28,6 +28,8 @@ var commitHandler = {
     maxFileCount: 1,
     projectSelectorDimensionMax: 30,
     projectSelectorDimensionMin: 10,
+    playing: null,
+    playingInterval: 4000,
 
     addCommit: function(commit) {
         if (this.validateCommit(commit)) {
@@ -320,6 +322,36 @@ var commitHandler = {
         $('li.status-commits').html(this.commitCount);
         this.projectCount = Object.keys(this.projectColors).length;
         $('li.status-projects').html(this.projectCount);
+    },
+    
+    // Play.  Simulate clicks on screen indefinitely.
+    playHandler: function() {
+        var thisCommitter = this;
+        $('a.play').click(function() {
+            $thisLink = $(this);
+            if ($thisLink.hasClass('playing')) {
+                $thisLink.removeClass('playing');
+                $(document).stopTime();
+            }
+            else {
+                $thisLink.addClass('playing');
+                $(document).everyTime(thisCommitter.playingInterval, function(i) {
+                    // Determine what event will happen
+                    var rand = Math.random();
+                    if (rand < 0.50) {
+                        $('.commit:random').trigger('click');
+                    }
+                    else if (rand < 0.75) {
+                        $('#project-selector a:random').trigger('click');
+                    }
+                    else {
+                        $('.palette li:random').trigger('click');
+                    }
+                });
+            }
+            
+            return false;
+        });
     }
 };
 
