@@ -5,8 +5,17 @@ var commitHandler = {
     commits: [],
     projectColors: {},
     colors: ['#3366FF', '#6633FF', '#CC33FF', '#FF33CC', '#33CCFF',
+        '#003DF5', '#002EB8', '#FF3366', '#33FFCC', '#B88A00', '#F5B800', 
+        '#FF6633', '#33FF66', '#66FF33', '#CCFF33', '#FFCC33'],
+    palettes: {
+        'default': ['#3366FF', '#6633FF', '#CC33FF', '#FF33CC', '#33CCFF',
             '#003DF5', '#002EB8', '#FF3366', '#33FFCC', '#B88A00', '#F5B800', 
             '#FF6633', '#33FF66', '#66FF33', '#CCFF33', '#FFCC33'],
+        'spring': ['#90AB76', '#E880A2', '#67A6A6', '#630947', '#F5AA9D',
+            '#E2F09C', '#FDD3E1', '#FA1B5E', '#FA6693', '#86BD77', '#F69E9E', 
+            '#FFB3C5', '#ED4051', '#FF6D32', '#FBB7A2'],
+        },
+    palette: 'default',
     borderWidth: 3,
     halfThreshhold: 15,
     totalThreshold: 100,
@@ -122,10 +131,16 @@ var commitHandler = {
     matchColor: function(projectName) {
         // Check if we already assigned it
         if (typeof this.projectColors[projectName] == 'undefined') {
-            this.projectColors[projectName] = this.colors[Math.floor(Math.random() * (this.colors.length + 1))];
+            this.projectColors[projectName] = this.palettes[this.palette][Math.floor(Math.random() * (this.palettes[this.palette].length + 1))];
         }
         
         return this.projectColors[projectName];
+    },
+    
+    updateProjectColors: function(projectName) {
+        for (var i in this.projectColors) {
+            this.projectColors[i] = this.palettes[this.palette][Math.floor(Math.random() * (this.palettes[this.palette].length + 1))];
+        }
     },
     
     updateColors: function() {
@@ -169,9 +184,29 @@ var commitHandler = {
     },
     
     displayPallette: function() {
-        for (var i in this.colors) {
-            $('<li></li>').css('background-color', this.colors[i]).appendTo('ul.palette');
+        var thisCommitter = this;
+    
+        // Go through palettes.
+        for (var p in this.palettes) {
+            $('<ul class="palette palette-' + p + '"></ul>').data('committer-palette', p).appendTo('div.settings');
+            for (var c in this.palettes[p]) {
+                $('<li></li>').css('background-color', this.palettes[p][c]).appendTo('ul.palette-' + p);
+            }
         }
+        
+        $('ul.palette-' + this.palette).addClass('active');
+        $('ul.palette').hover(function() {
+            $(this).toggleClass('viewing');
+        });
+        $('ul.palette').click(function() {
+            var palette = $(this).data('committer-palette');
+            
+            $('ul.palette').removeClass('active');
+            $(this).addClass('active');
+            thisCommitter.palette = palette;
+            thisCommitter.updateProjectColors();
+            thisCommitter.updateColors();
+        });
     },
     
     updateStats: function(commit) {
