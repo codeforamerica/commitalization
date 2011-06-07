@@ -11,6 +11,10 @@ var commitHandler = {
         'spring': ['#90AB76', '#E880A2', '#67A6A6', '#630947', '#F5AA9D',
             '#E2F09C', '#FDD3E1', '#FA1B5E', '#FA6693', '#86BD77', '#F69E9E', 
             '#FFB3C5', '#ED4051', '#FF6D32', '#FBB7A2'],
+        'fire': ['#FCE138', '#FBDB34', '#FAD531', '#F9CF2E', '#F9C92B', '#F8C328', 
+            '#F7BD25', '#F6B722', '#F6B11F', '#F5AB1B', '#F4A518', '#F39F15', '#F39912', 
+            '#F2930F', '#F18D0C'],
+        'craft': ['#BD2A4E', '#654B6B', '#628179', '#899738', '#34AB1A', '#8CB6A9', '#396ACC', '#A82A54', '#C29819', '#244844', '#AFA689', '#E5A600', '#F03737', '#CC9C0A', '#E4444C']
         },
     palette: 'default',
     paletteColorIndex: 0,
@@ -209,14 +213,14 @@ var commitHandler = {
     
         // Go through palettes.
         for (var p in this.palettes) {
-            // Randomize pallete
-            this.palettes[p].sort(function() {return 0.5 - Math.random()});
-        
             // Create palette display
             $('<ul class="palette palette-' + p + '"></ul>').data('committer-palette', p).appendTo('div.settings');
             for (var c in this.palettes[p]) {
                 $('<li></li>').css('background-color', this.palettes[p][c]).appendTo('ul.palette-' + p);
             }
+            
+            // Randomize pallete
+            this.palettes[p].sort(function() {return 0.5 - Math.random()});
         }
         
         $('ul.palette-' + this.palette).addClass('active');

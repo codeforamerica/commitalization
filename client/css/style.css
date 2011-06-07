@@ -150,11 +150,11 @@ footer {
 }
 
 #commit-container .commit a.commit-author {
-    color: #F5B800;
+    color: #B3B3B3;
 }
 
 #commit-container .commit a.commit-message {
-    color: #33CCFF;
+    color: #E4E4E4;
 }
 #commit-container .commit .commit-commit-user {
     width: 35px;
