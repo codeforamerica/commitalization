@@ -28,6 +28,7 @@
         
         // Click handling
         commitHandler.clickHandler();
+        commitHandler.projectSelectHandler();
         
         // Display our palette
         commitHandler.displayPalettes();

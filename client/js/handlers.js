@@ -19,6 +19,11 @@ var commitHandler = {
     totalThreshold: 100,
     projectCount: 0,
     commitCount: 0,
+    fileChanges: {},
+    minFileCount: 0,
+    maxFileCount: 1,
+    projectSelectorDimensionMax: 30,
+    projectSelectorDimensionMin: 10,
 
     addCommit: function(commit) {
         if (this.validateCommit(commit)) {
@@ -34,6 +39,7 @@ var commitHandler = {
             this.updateSizes();
             this.updateColors();
             
+            
             // Fancy isotope stuff
             $('#commit-container').isotope('reloadItems')
                 .isotope({ sortBy: 'original-order' }).isotope('reLayout');
@@ -43,6 +49,8 @@ var commitHandler = {
             
             // Update stats
             this.updateStats(commit);
+            // Update project selector
+            this.updateProjectSelector();
         }
     },
     
@@ -126,10 +134,10 @@ var commitHandler = {
         return valid;
     },
     
+    // Assign a color to a project
     matchColor: function(projectName, force) {
         var force = force || false;
-console.log(this.paletteColorIndex);
-console.log(this.palettes[this.palette]);
+
         // Check if already assigned
         if (typeof this.projectColors[projectName] == 'undefined' || force) {
             // Choose next one
@@ -144,12 +152,14 @@ console.log(this.palettes[this.palette]);
         return this.projectColors[projectName];
     },
     
+    // Update all the already set project colors.
     updateProjectColors: function(projectName) {
         for (var i in this.projectColors) {
             this.matchColor(i, true);
         }
     },
     
+    // Update colors on the screen.
     updateColors: function() {
         for (var i in this.projectColors) {
             $('.repo-' + i + ' .commit-project a').css('color', this.projectColors[i]);
@@ -157,11 +167,13 @@ console.log(this.palettes[this.palette]);
         }
     },
     
+    // Update sizes of items.
     updateSizes: function() {
         // Any commits over half threshold get a new class.
         $('#commit-container .commit').slice(this.halfThreshhold).addClass('half');
     },
     
+    // Click handler for commit items.
     clickHandler: function() {
         // Handler to open up commits (could be more eddicient)
         $('.commit:not(.commit-latest)').live('click', function() {
@@ -190,6 +202,7 @@ console.log(this.palettes[this.palette]);
         });
     },
     
+    // Display palette switcher.
     displayPalettes: function() {
         // This should only be done once.
         var thisCommitter = this;
@@ -219,26 +232,86 @@ console.log(this.palettes[this.palette]);
                 thisCommitter.palette = palette;
                 thisCommitter.updateProjectColors();
                 thisCommitter.updateColors();
+                thisCommitter.updateProjectSelector();
             }
         });
     },
     
+    // Display project selector
+    updateProjectSelector: function() {
+        $('#project-selector a').remove();
+        for (var i in this.fileChanges) {
+            // Determine dimension
+            var a = this.minFileCount;
+            var b = this.fileChanges[i];
+            var c = this.maxFileCount;
+            var d = this.projectSelectorDimensionMin;
+            var e = this.projectSelectorDimensionMax;
+            if (c == a) {
+                var final = e;
+            }
+            else {
+                var final = Math.ceil((e - d) * ((b - a) / (c - a)) + d);
+            }
+            
+            // It's easier to deal with this here
+            $('#project-selector').css('background-color', '#000000');
+
+            // Add box
+            $('<a></a>').addClass('project-' + i)
+                .attr('title', i)
+                .attr('data-filter', '.repo-' + i)
+                .css('background-color', this.projectColors[i])
+                .css('width', String(final) + 'px')
+                .css('height', String(final) + 'px')
+                .appendTo('#project-selector');
+        }
+        // Show all link
+        final = Math.ceil((0.5 * (e - d)) + d);
+        $('<a></a>').addClass('project-none')
+            .attr('data-filter', '*')
+            .css('background-color', '#EEEEEE')
+            .css('width', String(final) + 'px')
+            .css('height', String(final) + 'px')
+            .appendTo('#project-selector');
+    },
+    
+    // Handler for project select clicks
+    projectSelectHandler: function() {
+        $('#project-selector a').live('click', function() {
+            $('#project-selector a').removeClass('active');
+            $(this).addClass('active');
+            $('#commit-container').isotope({ filter: $(this).attr('data-filter') });
+            return false;
+        });
+    },
+    
+    // Update the stats.
     updateStats: function(commit) {
+        // Collect file changes by project
+        var types = ['added', 'modified', 'deleted'];
+        var collected = 0;
+        for (var i in commit.commits) {
+            for (var t in types) {
+                if (typeof commit.commits[i][types[t]] != 'undefined' && 
+                    typeof commit.commits[i][types[t]].length != 'undefined') {
+                    collected += Object.keys(commit.commits[i][types[t]]).length;
+                }
+            }
+        }
+        this.fileChanges[commit.repository.name] = this.fileChanges[commit.repository.name] || 0;
+        this.fileChanges[commit.repository.name] += collected;
+        collected = this.fileChanges[commit.repository.name];
+        this.minFileCount = (this.minFileCount == 0 || collected < this.minFileCount) ? collected : this.minFileCount;
+        this.maxFileCount = (this.maxFileCount == 1 || collected > this.maxFileCount) ? collected : this.maxFileCount;
+
+        // Update bottom display with project and commit count
         this.commitCount += Object.keys(commit.commits).length;
         $('li.status-commits').html(this.commitCount);
-        
         this.projectCount = Object.keys(this.projectColors).length;
         $('li.status-projects').html(this.projectCount);
     }
 };
-
-/**
- * GitHub Data handler
- */
-var githubDataHandler = {
-    users: {},
-    projects: {}
-}
 
 /**
  * Socket handler
