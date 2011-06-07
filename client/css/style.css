@@ -331,6 +331,19 @@ li.status-value {
 }
 
 /**
+ * Demo play button
+ */
+a.play {
+    display: block;
+    width: auto;
+    color: #FFFFFF;
+}
+a.play:hover,
+a.play:visited:hover {
+    color: #FFFFFF;
+}
+
+/**
  * Clearfix
  */
 .clearfix:after {

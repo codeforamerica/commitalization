@@ -331,10 +331,12 @@ var commitHandler = {
             $thisLink = $(this);
             if ($thisLink.hasClass('playing')) {
                 $thisLink.removeClass('playing');
+                $thisLink.html('off');
                 $(document).stopTime();
             }
             else {
                 $thisLink.addClass('playing');
+                $thisLink.html('on');
                 $(document).everyTime(thisCommitter.playingInterval, function(i) {
                     // Determine what event will happen
                     var rand = Math.random();
