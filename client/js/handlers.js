@@ -17,7 +17,7 @@ var commitHandler = {
         if (this.validateCommit(commit)) {
             commit = this.getMeta(commit);
             this.commits.push(commit);
-console.log(commit);
+
             // Remove any latest commit classes and add new one
             $('#commit-container .commit').removeClass('commit-latest');
             $newCommit = $(this.commitMarkup(commit, true)).addClass('commit-latest');
@@ -178,7 +178,7 @@ console.log(commit);
         this.commitCount += Object.keys(commit.commits).length;
         $('li.status-commits').html(this.commitCount);
         
-        this.projectCount += Object.keys(this.projectColors).length;
+        this.projectCount = Object.keys(this.projectColors).length;
         $('li.status-projects').html(this.projectCount);
     }
 };
