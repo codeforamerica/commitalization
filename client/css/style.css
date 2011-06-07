@@ -246,7 +246,7 @@ li.status-value {
 .footer-container ul.palette.viewing li {
     border: 1px solid #FFFFFF;
 }
-.footer-container ul.palette.viewing li {
+.footer-container ul.palette.viewing {
     cursor: pointer;
 }
 

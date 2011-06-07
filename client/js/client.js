@@ -29,8 +29,8 @@
         // Click handling
         commitHandler.clickHandler();
         
-        // Display our pallette
-        commitHandler.displayPallette();
+        // Display our palette
+        commitHandler.displayPalettes();
         
         // Handle post test click
         var count = 0;
