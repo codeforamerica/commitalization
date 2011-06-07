@@ -257,6 +257,12 @@ li.status-value {
 .about-project {
     text-align: right;
 }
+.about-project a,
+.about-project a:visited,
+.about-project a:hover,
+.about-project a:visited:hover {
+    color: #AAAAAA;
+}
 
 /**
  * Clearfix

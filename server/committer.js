@@ -8,6 +8,7 @@ var committer = function(commitLimit) {
     this.commits = [];
     this.commitLimit = commitLimit || 50;
     this.commitID = 0;
+    this.committers = [];
 }
 committer.prototype = new emitter;
 
@@ -15,34 +16,30 @@ committer.prototype = new emitter;
 committer.prototype.emitCommit = function(commit) {
     var i = 0;
     var thisCommitter = this;
+    
+    // Check that it is an actual commit
     var valid = this.checkCommit(commit);
     if (valid) {
         commit = this.addCommit(commit);
         
-        // Add some meta data
-        var githubAPI = new github.GitHubApi(true);
-        // Get general author info
-        githubAPI.getUserApi().show(commit.pusher.name, function(err, response) {
-            commit.author_meta = response;
-            
-            // Get commit author data (looping through asychonous calls, doesnt work
-            // needs help.)
-            /*
-            for (i in commit.commits) {
-                githubAPI.getUserApi().show(commit.commits[i].author.username, function(err, response) {
-                    commit.commits[i].author_meta = response;
-                    
-                    if (i == Object.keys(commit.commits).length - 1) {
-                        // Send it out
-                        thisCommitter.emit('committed', commit);
-                    }
-                });
-            }
-            */
-            
-            // Send it out
+        // Add some meta data.  We should cache the users we already
+        // have looked up not to anger the GitHub API gods.
+        if (typeof this.committers[commit.pusher.name] != 'undefined') {
+console.log('FOUND');
+            commit.author_meta = this.committers[commit.pusher.name];
             thisCommitter.emit('committed', commit);
-        });
+        }
+        else {
+            var githubAPI = new github.GitHubApi(true);
+            // Get general author info
+            githubAPI.getUserApi().show(commit.pusher.name, function(err, response) {
+                commit.author_meta = response;
+                thisCommitter.committers[commit.pusher.name] = response;
+                
+                // Send it out
+                thisCommitter.emit('committed', commit);
+            });
+        }
     }
     
     return valid;
