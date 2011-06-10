@@ -19,7 +19,7 @@ var commitHandler = {
     palette: 'default',
     paletteColorIndex: 0,
     borderWidth: 3,
-    halfThreshhold: 15,
+    halfThreshhold: 25,
     totalThreshold: 100,
     projectCount: 0,
     commitCount: 0,
@@ -261,7 +261,7 @@ var commitHandler = {
             }
             
             // It's easier to deal with this here
-            $('#project-selector').css('background-color', '#000000');
+            $('#project-selector').css('background-color', '#111111');
 
             // Add box
             $addition = $('<a></a>').addClass('project-' + i)
@@ -281,6 +281,11 @@ var commitHandler = {
             .css('width', String(final) + 'px')
             .css('height', String(final) + 'px')
             .appendTo('#project-selector');
+            
+        // Make the commit container just slightly bigger than selector
+        var selectHeight =  $('#project-selector').height();
+        $('#commit-container').css('min-height', (selectHeight + 20) + 'px');
+        
     },
     
     // Handler for project select clicks

@@ -85,6 +85,7 @@ footer {
 }
 #commit-container .commit {
     padding: 10px;
+    -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     background-color: #595959;
@@ -106,6 +107,7 @@ footer {
 
 
 #commit-container .commit .commit-recieved {
+    -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     width: 100px;
@@ -115,14 +117,14 @@ footer {
     color: #FFFFFF;
     padding: 5px;
     text-align: center;
+    margin-bottom: 2px;
 }
 
 #commit-container .commit .commit-project {
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.1em;
     margin-bottom: 10px;
-    
-  text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(67,67,67,0.2) 0 1px, rgba(0,0,0,0.2) -1px -1px;
+    text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(67,67,67,0.2) 0 1px, rgba(0,0,0,0.2) -1px -1px;
 }
 
 #commit-container .commit .commits-title {
@@ -135,6 +137,7 @@ footer {
 
 #commit-container .commit .commit-commits {
     background-color: #444444;
+    -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 10px;
@@ -211,8 +214,9 @@ footer {
     right: 0;
     z-index: 1000;
     padding: 20px 10px;
-    -moz-border-radius-bottomleft: 5px;
-    border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 #project-selector a {
