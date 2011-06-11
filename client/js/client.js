@@ -3,36 +3,23 @@
     $(document).ready(function() {
         var socket = new io.Socket(); 
         socket.on('connect', function() {
-            socketHandler.updateStatus('connected'); 
+            socketHandler.updateStatus('connected');
+            socketHandler.updateConnectionStatus('connnected');
         }); 
         socket.on('message', function(message) {
             commitHandler.addCommit(message);
         });
         socket.on('disconnect', function() {
             socketHandler.updateStatus('disconnected');
+            socketHandler.updateConnectionStatus('disconnected');
         });
         
         // Conneck the sprockets!
         socket.connect();
+        //socketHandler.refreshDisconnect();
         
-        // Initialize the isotope
-        var $container = $('#commit-container');
-        $container.isotope({
-            itemSelector : '.commit',
-            layoutMode : 'masonry',
-            animationEngine: 'best-available',
-            masonry : {
-              columnWidth : 2
-            }
-        });
-        
-        // Click handling
-        commitHandler.clickHandler();
-        commitHandler.projectSelectHandler();
-        commitHandler.playHandler();
-        
-        // Display our palette
-        commitHandler.displayPalettes();
+        // Commitalization go!
+        commitHandler.start();
         
         // Handle post test click
         var count = 0;
