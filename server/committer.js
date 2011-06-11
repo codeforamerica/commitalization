@@ -25,7 +25,6 @@ committer.prototype.emitCommit = function(commit) {
         // Add some meta data.  We should cache the users we already
         // have looked up not to anger the GitHub API gods.
         if (typeof this.committers[commit.pusher.name] != 'undefined') {
-console.log('FOUND');
             commit.author_meta = this.committers[commit.pusher.name];
             thisCommitter.emit('committed', commit);
         }
