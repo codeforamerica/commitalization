@@ -304,7 +304,7 @@ var commitHandler = {
             
         // Make the commit container just slightly bigger than selector
         var selectHeight =  $('#project-selector').height();
-        $('#commit-container').css('min-height', (selectHeight + 20) + 'px');
+        $('#commit-container').css('min-height', (selectHeight + 40) + 'px');
         
     },
     

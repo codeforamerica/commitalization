@@ -14,27 +14,34 @@
             socketHandler.updateConnectionStatus('disconnected');
         });
         
-        // Conneck the sprockets!
-        socket.connect();
-        //socketHandler.refreshDisconnect();
-        
-        // Commitalization go!
-        commitHandler.start();
-        
-        // Handle post test click
-        var count = 0;
-        $('a.post-test').each(function() {
-            var testData = getTestData();
-        
-            $(this).click(function() {
-                $.post('committed', testData[count], function() {
-                    // Success
-                    count = (count == testData) ? 0 : count + 1;
-                });
-                return false;
-            });
+        try {
+            // Conneck the sprockets!
+            socket.connect();
+            //socketHandler.refreshDisconnect();
             
-        });
+            // Commitalization go!
+            commitHandler.start();
+            
+            // Handle post test click
+            var count = 0;
+            $('a.post-test').each(function() {
+                var testData = getTestData();
+            
+                $(this).click(function() {
+                    $.post('committed', testData[count], function() {
+                        // Success
+                        count = (count == testData) ? 0 : count + 1;
+                    });
+                    return false;
+                });
+                
+            });
+        }
+        catch (e) {
+            if (typeof console != 'undefined') {
+                console.log(e);
+            }
+        }
     });
 })(jQuery);
 
