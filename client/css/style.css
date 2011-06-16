@@ -125,6 +125,7 @@ footer {
     font-size: 1.1em;
     margin-bottom: 10px;
     text-shadow: rgba(0,0,0,0.2) -1px 0, rgba(0,0,0,0.2) 0 -1px, rgba(67,67,67,0.2) 0 1px, rgba(0,0,0,0.2) -1px -1px;
+    clear: both;
 }
 
 #commit-container .commit .commits-title {
