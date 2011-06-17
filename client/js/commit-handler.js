@@ -131,12 +131,6 @@ var commitHandler = {
     
     // Get meta data
     getMeta: function(commit) {
-        // Let's assume the first author we find is the only/main author
-        commit.author = commit.author || {};
-        commit.author.name = commit.commits[0].author.name;
-        
-        // This is where we would query GitHub to get some more information
-        
         // Format time that commit was recieved by server
         commit.received = commit.received || new Date();
         commit.received = dateFormat(commit.received, 'isoDateTime');
@@ -196,7 +190,9 @@ var commitHandler = {
     // Update sizes of items.
     updateSizes: function() {
         // Any commits over half threshold get a new class.
-        $('#commit-container .commit').slice(this.halfThreshhold).addClass('half');
+        $('#commit-container .commit').data('half', null);
+        $('#commit-container .commit').slice(this.halfThreshhold).data('half', true);
+        $('#commit-container .commit:not(.open)').slice(this.halfThreshhold).addClass('half');
     },
     
     // Click handler for commit items.
@@ -208,7 +204,6 @@ var commitHandler = {
             
             // Check half
             if ($thisTitle.hasClass('half')) {
-                $thisTitle.data('half', true);
                 $thisTitle.removeClass('half');
             }
             else if ($thisTitle.data('half')) {
